@@ -1,0 +1,1 @@
+Place the sonos folder in your /conf/html/ folder to allow it to be externally accessible

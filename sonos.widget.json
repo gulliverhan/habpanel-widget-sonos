@@ -1,139 +1,56 @@
-<style>
-.sonoscover {width: 90%; height: 14em; border: 0; color: white; background-color: transparent;}
-.sonosbutton {width: 90%; height: 4em; border: 0; color: white; background-color: transparent;}
-.sonosctrl {width: 90%; height: 3em; border: 0; color: white; background-color: transparent;}
-.sonosbuttontxt_white {width: 100%;height: 4em; border: 0; color: white;font-size: 10pt; background-color: transparent;}
-.sonosbuttontxt_red {width: 100%;height: 4em; border: 0; color: red;font-size: 10pt; background-color: transparent;}
-.modgrid {padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;}
-.modgrid2 {height: 6em; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;}
-.butticon {font-size:1em;}
-</style>
-<div id="sonos-control"  class="table" style= "position: absolute; top: 10px; left: 0; width: 100%; height: 90%;">
-<div class="row">
-{{itemValue('str_sonos_livingroom_zonename')}}
-</div>
-<div  class="row" style="height:150px;" ng-if="itemValue('str_sonos_livingroom_currentalbumarturl') != 'UNDEF'" >
-<img style="max-width: 90%; height: 90%;" ng-src="{{itemValue('str_sonos_livingroom_currentalbumarturl')}}" aria-hidden="false"/>
-</div>
-<div class="row" style="height:150px;" ng-if="itemValue('str_sonos_livingroom_currentalbumarturl') == 'UNDEF'" >
-<img style="max-width: 90%; max-height: 90%;" ng-src="../static/sonos/sonos_logo.png"/>
-</div>
-<div class="row" style="height:40px;padding-left: 25px; padding-right: 25px;">
-{{ itemValue('str_sonos_livingroom_currenttrack') | limitTo: 80 }}{{itemValue('str_sonos_livingroom_currenttrack').length > 80 ? '...' : ''}}
-</div>
-<div  class="row">
-<div class="col-md-3 modgrid">
-<button class="sonosctrl" style="background-size: contain; background-repeat: no-repeat;background-position: center center;font-size:25px;"
-ng-click="sendCmd('pl_sonos_livingroom_control', 'PREVIOUS')">
-<i class="glyphicon glyphicon-step-backward butticon" alt="Step Backward"></i>
-</button>
-</div>
-<div ng-if="itemValue('str_sonos_livingroom_state')=='PLAYING'" class="col-xs-3 modgrid">
-<button class="sonosctrl" style="background-size: contain; background-repeat: no-repeat;background-position: center center;font-size:25px;"
-ng-click="sendCmd('pl_sonos_livingroom_control', 'PAUSE')">
-<i class="glyphicon glyphicon-pause butticon" alt="PAUSE"></i>
-</button>
-</div>
-<div ng-if="itemValue('str_sonos_livingroom_state')!='PLAYING'" class="col-xs-3 modgrid">
-<button class="sonosctrl" style="background-size: contain; background-repeat: no-repeat;background-position: center center;font-size:25px;color:red;"
-ng-click="sendCmd('pl_sonos_livingroom_control', 'PAUSE')">
-<i class="glyphicon glyphicon-pause butticon" alt="PAUSE"></i>
-</button>
-</div>
-<div ng-if="itemValue('str_sonos_livingroom_state')=='PLAYING'" class="col-xs-3 modgrid">
-<button class="sonosctrl" style="background-size: contain; background-repeat: no-repeat;background-position: center center;font-size:25px;color:green;"
-ng-click="sendCmd('pl_sonos_livingroom_control', 'PLAY')">
-<i class="glyphicon glyphicon-play butticon" alt="Play"></i>
-</button>
-</div>
-<div ng-if="itemValue('str_sonos_livingroom_state')!='PLAYING'" class="col-xs-3 modgrid">
-<button class="sonosctrl" style="background-size: contain; background-repeat: no-repeat;background-position: center center;font-size:30px;"
-ng-click="sendCmd('pl_sonos_livingroom_control', 'PLAY')">
-<i class="glyphicon glyphicon-play butticon" alt="Play"></i>
-</button>
-</div>
-<div class="col-xs-3 modgrid">
-<button class="sonosctrl" style="background-size: contain; background-repeat: no-repeat;background-position: center center;font-size:30px;"
-ng-click="sendCmd('pl_sonos_livingroom_control', 'NEXT')">
-<i class="glyphicon glyphicon-step-forward butticon" alt="Step Forward"></i>
-</button>
-</div>
-</div>
-<div  class="row">
-<div class="col-md-12">
-<div ng-init="slider = {
-'item': 'dim_sonos_livingroom_volume',
-'vertical': false,
-'floor': 0,
-'ceil': 50,
-'step': 2,
-'precision': 1,
-'unit': '%',
-'hidelabel': true,
-'hidelimits': false,
-'hidepointer': false,
-'showticks': false,
-'bigslider': false
-}">
-</div>
-<widget-slider ng-model="slider"/>
-</div>
-</div>
-<div  class="row">
-<div class="col-md-4 modgrid">
-<button class="sonosbutton" style="background-image: url(/static/sonos/1.png); background-size: contain; background-repeat: no-repeat;background-position: center center"
-ng-click="sendCmd('str_sonos_livingroom_radio', 'SRF 1 Basel')">
-</button>
-</div>
-<div class="col-xs-4 modgrid">
-<button class="sonosbutton" style="background-image: url(/static/sonos/2.png); background-size: contain; background-repeat: no-repeat;background-position: center center"
-ng-click="sendCmd('str_sonos_livingroom_radio', 'SRF 2 Kultur')">
-</button>
-</div>
-<div class="col-xs-4 modgrid">
-<button class="sonosbutton" style="background-image: url(/static/sonos/3.png); background-size: contain; background-repeat: no-repeat;background-position: center center"
-ng-click="sendCmd('str_sonos_livingroom_radio', 'SRF 3')">
-</button>
-</div>
-</div>
-<div  class="row">
-<div class="col-md-4 modgrid">
-<button class="sonosbutton" style="background-image: url(/static/sonos/4.png); background-size: contain; background-repeat: no-repeat;background-position: center center"
-ng-click="sendCmd('str_sonos_livingroom_radio', 'SRF 4 News')">
-</button>
-</div>
-<div class="col-xs-4 modgrid">
-<button class="sonosbutton" style="background-image: url(/static/sonos/5.png); background-size: contain; background-repeat: no-repeat;background-position: center center"
-ng-click="sendCmd('str_sonos_livingroom_radio', 'Radio Basilisk')">
-</button>
-</div>
-<div class="col-xs-4 modgrid">
-<button class="sonosbutton" style="background-image: url(/static/sonos/6.png); background-size: contain; background-repeat: no-repeat;background-position: center center"
-ng-click="sendCmd('str_sonos_livingroom_radio', 'NRJ Basel')">
-</button>
-</div>
-</div>
-<div  class="row">
-<div class="col-md-4 modgrid">
-<button class="sonosbuttontxt_red" style="background-size: contain; background-repeat: no-repeat;background-position: center center"
-ng-click="sendCmd('sw_sonos_livingroom_standalone', 'ON')">
-<i class="glyphicon glyphicon-fullscreen" alt="Step Backward"></i><br>
-<b>Ungroup</b>
-</button>
-</div>
-<div class="col-md-4 modgrid">
-<button class="sonosbuttontxt_white" style="background-size: contain; background-repeat: no-repeat;background-position: center center"
-ng-click="sendCmd('sw_sonos_group_kitchen_with_livingroom', 'ON')">
-<i class="glyphicon glyphicon-plus-sign butticon" alt="Step Backward"></i><br>
-<b>Kitchen</b>
-</button>
-</div>
-<div class="col-xs-4 modgrid">
-<button class="sonosbuttontxt_white" style="background-size: contain; background-repeat: no-repeat;background-position: center center"
-ng-click="sendCmd('sw_sonos_group_bad_with_livingroom', 'ON')">
-<i class="glyphicon glyphicon-plus-sign butticon" alt="Step Backward"></i><br>
-<b>Bath</b>
-</button>
-</div>
-</div>
-</div>
+{
+  "name": "Sonos Player",
+  "author": "GulliverHandley",
+  "description": "Combined color, brightness and switch widgets.",
+  "template": "<style> .sonoscover {width: 90%; height: 14em; border: 0; color: white; background-color: transparent;} .sonosbutton {width: 90%; height: 4em; border: 0; color: white; background-color: transparent;} .sonosctrl {width: 90%; height: 3em; border: 0; color: white; background-color: transparent;} .sonosbuttontxt_white {width: 100%;height: 4em; border: 0; color: white;font-size: 10pt; background-color: transparent;} .sonosbuttontxt_red {width: 100%;height: 4em; border: 0; color: red;font-size: 10pt; background-color: transparent;} .modgrid {padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;} .modgrid2 {height: 6em; padding-left: 2px; padding-right: 2px; padding-top: 2px; padding-bottom: 2px;} .butticon {font-size:1em;}<\/style><div id=\"sonos-control\" class=\"table\" style= \"position: absolute; top: 10px; left: 0; width: 100%; height: 90%;\"> <div class=\"row\"> {{itemValue(\\\\'str_sonos_livingroom_zonename\\\\')}} <\/div> <div class=\"row\" style=\"height:150px;\" ng-if=\"itemValue(config.currentTrackImage) != \\\\'UNDEF\\\\'\" > <img style=\"max-width: 90%; height: 90%;\" ng-src=\"{{itemValue(config.currentTrackImage)}}\" aria-hidden=\"false\"\/> <\/div> <div class=\"row\" style=\"height:150px;\" ng-if=\"itemValue(config.currentTrackImage) == \\\\'UNDEF\\\\'\" > <img style=\"max-width: 90%; max-height: 90%;\" ng-src=\"..\/static\/sonos\/sonos_logo.png\"\/> <\/div> <div class=\"row\" style=\"height:40px;padding-left: 25px; padding-right: 25px;\"> {{ itemValue(config.currentTrack) | limitTo: 80 }}{{itemValue(config.currentTrack).length > 80 ? \\\\'...\\\\' : \\\\'\\\\'}} <\/div> <div class=\"row\"> <div class=\"col-md-3 modgrid\"> <button class=\"sonosctrl\" style=\"background-size: contain; background-repeat: no-repeat;background-position: center center;font-size:25px;\" ng-click=\"sendCmd(config.control, \\\\'PREVIOUS\\\\')\"> <i class=\"glyphicon glyphicon-step-backward butticon\" alt=\"Step Backward\"><\/i> <\/button> <\/div> <div ng-if=\"itemValue(config.control)==\\\\'PLAYING\\\\'\" class=\"col-xs-3 modgrid\"> <button class=\"sonosctrl\" style=\"background-size: contain; background-repeat: no-repeat;background-position: center center;font-size:25px;\" ng-click=\"sendCmd(config.control, \\\\'PAUSE\\\\')\"> <i class=\"glyphicon glyphicon-pause butticon\" alt=\"PAUSE\"><\/i> <\/button> <\/div> <div ng-if=\"itemValue(config.control)!=\\\\'PLAYING\\\\'\" class=\"col-xs-3 modgrid\"> <button class=\"sonosctrl\" style=\"background-size: contain; background-repeat: no-repeat;background-position: center center;font-size:25px;color:red;\" ng-click=\"sendCmd(config.control, \\\\'PAUSE\\\\')\"> <i class=\"glyphicon glyphicon-pause butticon\" alt=\"PAUSE\"><\/i> <\/button> <\/div> <div ng-if=\"itemValue(config.control)==\\\\'PLAYING\\\\'\" class=\"col-xs-3 modgrid\"> <button class=\"sonosctrl\" style=\"background-size: contain; background-repeat: no-repeat;background-position: center center;font-size:25px;color:green;\" ng-click=\"sendCmd(config.control, \\\\'PLAY\\\\')\"> <i class=\"glyphicon glyphicon-play butticon\" alt=\"Play\"><\/i> <\/button> <\/div> <div ng-if=\"itemValue(config.control)!=\\\\'PLAYING\\\\'\" class=\"col-xs-3 modgrid\"> <button class=\"sonosctrl\" style=\"background-size: contain; background-repeat: no-repeat;background-position: center center;font-size:30px;\" ng-click=\"sendCmd(config.control, \\\\'PLAY\\\\')\"> <i class=\"glyphicon glyphicon-play butticon\" alt=\"Play\"><\/i> <\/button> <\/div> <div class=\"col-xs-3 modgrid\"> <button class=\"sonosctrl\" style=\"background-size: contain; background-repeat: no-repeat;background-position: center center;font-size:30px;\" ng-click=\"sendCmd(config.control, \\\\'NEXT\\\\')\"> <i class=\"glyphicon glyphicon-step-forward butticon\" alt=\"Step Forward\"><\/i> <\/button> <\/div> <\/div> <div class=\"row\"> <div class=\"col-md-12\"> <div ng-init=\"slider = {\\\\'item\\\\': config.volume,\\\\'vertical\\\\': false,\\\\'floor\\\\': 0,\\\\'ceil\\\\': 50,\\\\'step\\\\': 2,\\\\'precision\\\\': 1,\\\\'unit\\\\': \\\\'%\\\\',\\\\'hidelabel\\\\': true,\\\\'hidelimits\\\\': false,\\\\'hidepointer\\\\': false,\\\\'showticks\\\\': false,\\\\'bigslider\\\\': false}\"> <\/div> <widget-slider ng-model=\"slider\"\/> <\/div> <\/div> <div class=\"row\"> <div class=\"col-md-4 modgrid\"> <button class=\"sonosbutton\" style=\"background-image: url(\/static\/sonos\/1.png); background-size: contain; background-repeat: no-repeat;background-position: center center\" ng-click=\"sendCmd(config.radio, \\\\'SRF 1 Basel\\\\')\"> <\/button> <\/div> <div class=\"col-xs-4 modgrid\"> <button class=\"sonosbutton\" style=\"background-image: url(\/static\/sonos\/2.png); background-size: contain; background-repeat: no-repeat;background-position: center center\" ng-click=\"sendCmd(config.radio, \\\\'SRF 2 Kultur\\\\')\"> <\/button> <\/div> <div class=\"col-xs-4 modgrid\"> <button class=\"sonosbutton\" style=\"background-image: url(\/static\/sonos\/3.png); background-size: contain; background-repeat: no-repeat;background-position: center center\" ng-click=\"sendCmd(config.radio, \\\\'SRF 3\\\\')\"> <\/button> <\/div> <\/div> <div class=\"row\"> <div class=\"col-md-4 modgrid\"> <button class=\"sonosbutton\" style=\"background-image: url(\/static\/sonos\/4.png); background-size: contain; background-repeat: no-repeat;background-position: center center\" ng-click=\"sendCmd(config.radio, \\\\'SRF 4 News\\\\')\"> <\/button> <\/div> <div class=\"col-xs-4 modgrid\"> <button class=\"sonosbutton\" style=\"background-image: url(\/static\/sonos\/5.png); background-size: contain; background-repeat: no-repeat;background-position: center center\" ng-click=\"sendCmd(config.radio, \\\\'Radio Basilisk\\\\')\"> <\/button> <\/div> <div class=\"col-xs-4 modgrid\"> <button class=\"sonosbutton\" style=\"background-image: url(\/static\/sonos\/6.png); background-size: contain; background-repeat: no-repeat;background-position: center center\" ng-click=\"sendCmd(config.radio, \\\\'NRJ Basel\\\\')\"> <\/button> <\/div> <\/div> <div class=\"row\"> <div class=\"col-md-4 modgrid\"> <button class=\"sonosbuttontxt_red\" style=\"background-size: contain; background-repeat: no-repeat;background-position: center center\" ng-click=\"sendCmd(config.switch1, \\\\'ON\\\\')\"> <i class=\"glyphicon glyphicon-fullscreen\" alt=\"Step Backward\"><\/i><br> <b>Ungroup<\/b> <\/button> <\/div> <div class=\"col-md-4 modgrid\"> <button class=\"sonosbuttontxt_white\" style=\"background-size: contain; background-repeat: no-repeat;background-position: center center\" ng-click=\"sendCmd(config.switch1, \\\\'ON\\\\')\"> <i class=\"glyphicon glyphicon-plus-sign butticon\" alt=\"Step Backward\"><\/i><br> <b>Kitchen<\/b> <\/button> <\/div> <div class=\"col-xs-4 modgrid\"> <button class=\"sonosbuttontxt_white\" style=\"background-size: contain; background-repeat: no-repeat;background-position: center center\" ng-click=\"sendCmd(config.switch1, \\\\'ON\\\\')\"> <i class=\"glyphicon glyphicon-plus-sign butticon\" alt=\"Step Backward\"><\/i><br> <b>Bath<\/b> <\/button> <\/div> <\/div><\/div>",
+  "settings": [
+    {
+      "type": "item",
+      "id": "control",
+      "label": "Sonos",
+      "description": "Sonos Control Item"
+    },
+    {
+      "type": "item",
+      "id": "volume",
+      "label": "Sonos Volume",
+      "description": "Sonos Volume Item"
+    },
+    {
+      "type": "item",
+      "id": "radio",
+      "label": "Sonos Radio",
+      "description": "Sonos Radio Item"
+    },
+    {
+      "type": "item",
+      "id": "currentTrack",
+      "label": "Current Track Item",
+      "description": ""
+    },
+    {
+      "type": "item",
+      "id": "currentTrackImage",
+      "label": "Current Track Artwork",
+      "description": ""
+    },
+    {
+      "type": "item",
+      "id": "switch1",
+      "label": "Switch option 1",
+      "description": "First option switch"
+    },
+    {
+      "type": "item",
+      "id": "switch2",
+      "label": "Switch option 2",
+      "description": "Second option switch"
+    },
+    {
+      "type": "item",
+      "id": "switch3",
+      "label": "Switch option 3",
+      "description": "Third option switch"
+    }
+  ]
+}
